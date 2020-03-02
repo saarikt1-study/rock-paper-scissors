@@ -7,7 +7,11 @@
 </head>
 <body>
    <script>
+       let score = 0;
+
        function playRound(playerSelection, computerSelection) {
+           console.log('Player chose to use ' + playerSelection + ' against the computer\'s ' + computerSelection);
+           
 
             let playerNumSelection = convertToNumResult(playerSelection);
             let computerNumSelection = convertToNumResult(computerSelection);
@@ -25,12 +29,16 @@
             
             function determineWinner(a, b) {
                 if (a === b) {
-                    return 'It\'s a tie!';
+                    console.log('It\'s a tie!');
                 }
                 else if ((a - b + 3) % 3 == 1) {
-                    return 'You won!';
+                    score++;
+                    console.log('You won!');
                 }
-                else return 'You lost...';
+                else {
+                    score--;
+                    console.log('You lost...');
+                }
             }
        }
 
@@ -40,8 +48,37 @@
            else if (rand < 6) return 'Paper'
            else return 'Scissors'
        }
-       console.log(playRound('Rock', computerPlay()));
        
+       function game() {
+            let rounds;
+
+            initGame();
+
+            for (i = 0; i < rounds; i++) {
+                let playerSelection = prompt("Choose your weapon!");
+                playRound(playerSelection, computerPlay());
+            }
+
+            showResults();
+
+            function initGame() {
+               rounds = prompt("Let the games begin! How many rounds would you like to play?");
+            }
+
+            function showResults() {
+               if (score > 0) console.log('You won the battle!');
+               else if (score = 0) console.log('In the end it was a tie.');
+               else console.log('Unfortunately you lost.');
+            }
+            
+            // Get input from user to determine how many rounds to play
+            // Get input from user to determine which one they choose
+            // Show results every round
+            // In the end count the score and determine winner
+
+       }
+
+       game();
    </script>
 </body>
 </html>
